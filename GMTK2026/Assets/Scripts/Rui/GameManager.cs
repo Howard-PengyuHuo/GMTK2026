@@ -147,7 +147,7 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    private void MarkRoomComplete() {
+    public void MarkRoomComplete() {
         roomComplete = true;
     }
 
@@ -228,8 +228,8 @@ public class GameManager : MonoBehaviour {
 
     private void ManageScenes()
     {
-        // Route A: A1(1,fresh) -> B1(2,derived) -> B2(3,fresh) -> A2(4,derived) -> C
-        // Route B: B1(1,fresh) -> A1(2,derived) -> A2(3,fresh) -> B2(4,derived) -> C
+        // Route A: A1 -> B1 -> B2 -> A2 -> C
+        // Route B: B1 -> A1 -> A2 -> B2 -> C
         switch (gameState)
         {
             case GameStates.RoomA1:
