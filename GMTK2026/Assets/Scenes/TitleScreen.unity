@@ -861,6 +861,11 @@ MonoBehaviour:
   CharA: {fileID: 1944970574}
   CharB: {fileID: 77614198}
   Timer: {fileID: 0}
+  clockNeedle: {fileID: 0}
+  minutesPerRotation: 1
+  TestCompleteButton: {fileID: 0}
+  ATimeText: {fileID: 0}
+  BTimeText: {fileID: 0}
   roomComplete: 0
 --- !u!4 &1136718616
 Transform:

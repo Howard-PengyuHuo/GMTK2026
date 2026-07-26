@@ -18,14 +18,23 @@ public class GameManager : MonoBehaviour
         private float timer = 0f; // this is used to count up 
         private float countdown; // this is used to count down 
         private const float tieThreshold = 10f; // determines how close in time both characters are for ending conditions
-        private float previousRoomTime = 0f; 
+        private float previousRoomTime = 0f;
+
+    [Header("Clock Needle")]
+        [SerializeField] private Transform clockNeedle;      // pivot is assumed to be at the needle's rotation center
+        [SerializeField] private float minutesPerRotation = 5f; // customize: 5 = one full 360бу turn every 5 in-game minutes
+        private float currentNeedleAngle = 0f;
+        private float previousNeedleAngle = 0f;
+
     [Header("Display Character")]
         private bool showA = false;
         private bool showB = false;
+
     [Header("Test/Debug UI")]
         [SerializeField] private Button TestCompleteButton; // "TestComplete" button in rooms A1, A2, B1, B2
         [SerializeField] private TMP_Text ATimeText;        // "ATime" text in Room C
         [SerializeField] private TMP_Text BTimeText;        // "BTime" text in Room C
+
     [Header("Rooms")]
         private bool AisFirstRoom = false;
         private bool BisFirstRoom = false;
@@ -53,16 +62,18 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        // Timer UI is a fresh object in every room scene (named "Time"), it does not
-        // persist like GameManager does, so we have to re-find and re-hook it each load.
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
         GameObject timeObj = GameObject.Find("Time");
         Timer = timeObj != null ? timeObj.GetComponent<TMP_Text>() : null;
 
+        GameObject needleObj = GameObject.Find("Clock Needle");
+        clockNeedle = needleObj != null ? needleObj.transform : null;
+        if (clockNeedle != null) {
+            clockNeedle.localRotation = Quaternion.Euler(0f, 0f, currentNeedleAngle);
+        }
+
         // Title screen buttons also live in their own scene; re-wire them if we're back there.
-        if (gameState == GameStates.Menu)
-        {
+        if (gameState == GameStates.Menu) {
             GameObject charAObj = GameObject.Find("Character A");
             GameObject charBObj = GameObject.Find("Character B");
             CharA = charAObj != null ? charAObj.GetComponent<Button>() : null;
@@ -76,15 +87,13 @@ public class GameManager : MonoBehaviour
         {
             GameObject testBtnObj = GameObject.Find("TestComplete");
             TestCompleteButton = testBtnObj != null ? testBtnObj.GetComponent<Button>() : null;
-            if (TestCompleteButton != null)
-            {
+            if (TestCompleteButton != null) {
                 TestCompleteButton.onClick.RemoveAllListeners();
                 TestCompleteButton.onClick.AddListener(MarkRoomComplete);
             }
         }
         // Room C displays the final backend totals for verification
-        else if (gameState == GameStates.RoomC)
-        {
+        else if (gameState == GameStates.RoomC) {
             GameObject aTimeObj = GameObject.Find("ATime");
             GameObject bTimeObj = GameObject.Find("BTime");
             ATimeText = aTimeObj != null ? aTimeObj.GetComponent<TMP_Text>() : null;
@@ -119,29 +128,34 @@ public class GameManager : MonoBehaviour
             UpdateTimerDisplay();
         }
     }
-    private void UpdateTimerDisplay() {
+    private void UpdateTimerDisplay()
+    {
         if (Timer == null) return;
+
         bool isFreshRoom = (currentRoomPosition % 2 == 1);
-        
+
         if (isFreshRoom) {
-            // Counting up from zero
             Timer.text = timer.ToString("F1");
         }
         else {
-            // Counting down from the other character's most recent total
-            /*float seed = (gameState == GameStates.RoomA1 || gameState == GameStates.RoomA2)
-                ? totalTimeB
-                : totalTimeA;
-            countdown = seed - timer;
-            Timer.text = countdown > 0f
-                ? countdown.ToString("F1")
-                : "+" + (-countdown).ToString("F1");*/ // in carry/overtime
             countdown = previousRoomTime - timer;
             Timer.text = countdown > 0f
                 ? countdown.ToString("F1")
                 : "+" + (-countdown).ToString("F1");
         }
+
+        RotateClockNeedle(isFreshRoom);
     }
+
+    private void RotateClockNeedle(bool isFreshRoom) {
+        if (clockNeedle == null) return;
+
+        float degreesPerSecond = 360f / (minutesPerRotation * 60f);
+        float direction = isFreshRoom ? -1f : 1f; // clockwise while counting up, counterclockwise while counting down
+        currentNeedleAngle += direction * degreesPerSecond * Time.deltaTime;
+        clockNeedle.localRotation = Quaternion.Euler(0f, 0f, currentNeedleAngle);
+    }
+
     private void StartRouteA() {
         AisFirstRoom = true;
         totalTimeA = 0f;
@@ -189,18 +203,29 @@ public class GameManager : MonoBehaviour
         }
     }
     private void LoadNewRoom(GameStates newState, string sceneName, int position) {
-        // Save the time spent in the room we're leaving (if any) before switching state.
-        // This is a true accumulating sum in the backend (A1+A2, B1+B2) regardless of
-        // whether the room was displayed as a fresh count-up or a derived countdown.
-        if (currentRoomPosition > 0)
-        {
+        if (currentRoomPosition > 0) {
             previousRoomTime = timer;
             SaveRoomTime(gameState);
+
+            // Only capture the needle's ending angle if we're leaving a FRESH (count-up) room бк
+            // that's the value the next derived room should countdown from.
+            bool wasFreshRoom = (currentRoomPosition % 2 == 1);
+            if (wasFreshRoom)
+            {
+                previousNeedleAngle = currentNeedleAngle;
+            }
         }
+
         timer = 0f;
         countdown = 0f;
         currentRoomPosition = position;
         gameState = newState;
+
+        // Fresh rooms always start the needle at 0бу; derived rooms pick up from the
+        // last fresh room's ending angle.
+        bool enteringFreshRoom = (position % 2 == 1);
+        currentNeedleAngle = enteringFreshRoom ? 0f : previousNeedleAngle;
+
         SceneManager.LoadScene(sceneName);
     }
     private void SaveRoomTime(GameStates room) {
