@@ -11,6 +11,7 @@ public sealed class ClockController : MonoBehaviour, IBeginDragHandler, IDragHan
     [SerializeField] private float spriteAngleOffset = -180f;
     public bool IsInstalled { get; private set; }
     public int CurrentStageIndex { get; private set; }
+    public float CurrentHandAngle => clockHand != null ? Normalize(clockHand.localEulerAngles.z) : 0f;
     private bool dragging;
 
     private void Awake()

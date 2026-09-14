@@ -52,6 +52,18 @@ public sealed class SpecimenManager : MonoBehaviour
         return SpecimenType.Bud;
     }
 
+    public SpecimenType GetTypeAtPosition(int index)
+    {
+        InitializeIfNeeded();
+        if (index < 0 || index >= 3)
+        {
+            Debug.LogWarning($"[Specimens] Invalid position index: {index}");
+            return SpecimenType.Sprout;
+        }
+
+        return TypeAt(index);
+    }
+
     private void ShowMarker(SpecimenFrame frame)
     {
         if(selectionMarker == null)return; 

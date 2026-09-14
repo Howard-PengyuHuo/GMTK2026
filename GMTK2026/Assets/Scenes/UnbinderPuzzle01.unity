@@ -1165,6 +1165,8 @@ GameObject:
   - component: {fileID: 247148107}
   - component: {fileID: 247148106}
   - component: {fileID: 247148105}
+  - component: {fileID: 247148110}
+  - component: {fileID: 247148109}
   m_Layer: 5
   m_Name: Watercan
   m_TagString: Untagged
@@ -1217,7 +1219,7 @@ Animator:
   m_GameObject: {fileID: 247148103}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a5927f98a42fa064898581c94ba3895b, type: 2}
+  m_Controller: {fileID: 9100000, guid: e1366a3c6233099449dbde253f58a39b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1264,6 +1266,45 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 247148103}
   m_CullTransparentMesh: 1
+--- !u!114 &247148109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 247148103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ea7681dd0e5af844a9d32c260bdd5a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WateringAnimationPlayer
+  animator: {fileID: 247148106}
+  visual: {fileID: 247148107}
+  waterState: Water
+--- !u!223 &247148110
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 247148103}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_UseReflectionProbes: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 50
+  m_TargetDisplay: 0
 --- !u!1 &275966031
 GameObject:
   m_ObjectHideFlags: 0
@@ -5873,6 +5914,7 @@ GameObject:
   - component: {fileID: 1144720699}
   - component: {fileID: 1144720698}
   - component: {fileID: 1144720697}
+  - component: {fileID: 1144720702}
   m_Layer: 5
   m_Name: sprout
   m_TagString: Untagged
@@ -5890,7 +5932,7 @@ Animator:
   m_GameObject: {fileID: 1144720695}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: cd3d87709c760bd4294375ee70114f65, type: 2}
+  m_Controller: {fileID: 9100000, guid: dea927d873b6e154793170bd77932ab8, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -5972,6 +6014,37 @@ RectTransform:
   m_AnchoredPosition: {x: 495.013, y: 180.639}
   m_SizeDelta: {x: 268.863, y: 268.416}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1144720702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1144720695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6deced4c7e01e6747a6b7c6dc5e6f16f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RoomViewSynchronizer
+  viewManager: {fileID: 658245600}
+  closeUpClock: {fileID: 1787580428}
+  specimenManager: {fileID: 2125909824}
+  closeUpFlower: {fileID: 1424545454}
+  roomClockHand: {fileID: 370198355}
+  roomSpecimenSlots:
+  - {fileID: 915370120}
+  - {fileID: 1537613486}
+  - {fileID: 2047615798}
+  sproutSpecimenTexture: {fileID: 2800000, guid: c25b7478e216b9e48bd83f65c29d2683, type: 3}
+  leavesSpecimenTexture: {fileID: 2800000, guid: 01ad100dc7251754bab345e52f3fa5e3, type: 3}
+  budSpecimenTexture: {fileID: 2800000, guid: ac8372927f3028741887ebc995a994c3, type: 3}
+  roomPlantAnimator: {fileID: 1144720697}
+  roomPlantGraphic: {fileID: 1144720699}
+  unusedRoomStageVisuals:
+  - {fileID: 428667703}
+  - {fileID: 1432722182}
+  - {fileID: 1950118116}
+  - {fileID: 1579765127}
 --- !u!1 &1169162702
 GameObject:
   m_ObjectHideFlags: 0
@@ -6738,6 +6811,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlowerPotInteraction
   wateringCanItem: {fileID: 11400000, guid: 63ac8083a880f564ebfe7af84539f513, type: 2}
+  wateringAnimation: {fileID: 247148109}
 --- !u!114 &1245280260
 MonoBehaviour:
   m_ObjectHideFlags: 0

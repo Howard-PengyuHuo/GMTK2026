@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 public sealed class FlowerPotInteraction : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private ItemData wateringCanItem;
+    [SerializeField] private WateringAnimationPlayer wateringAnimation;
     
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -15,7 +16,10 @@ public sealed class FlowerPotInteraction : MonoBehaviour, IPointerClickHandler
             return;
         }
         
-        if (FlowerPuzzleManager.Instance.WaterPlant()) 
+        if (FlowerPuzzleManager.Instance.WaterPlant())
+        {
+            wateringAnimation?.PlayWatering();
             InventoryManager.Instance.TryUseSelectedItem(wateringCanItem, true);
+        }
     }
 }
