@@ -391,8 +391,8 @@ MonoBehaviour:
   firstDial: {fileID: 2012207321}
   secondDial: {fileID: 1315189262}
   thirdDial: {fileID: 1090100526}
-  correctFirstValue: 1
-  correctSecondValue: 3
+  correctFirstValue: 2
+  correctSecondValue: 4
   correctThirdValue: 5
   wateringCanPickup: {fileID: 371152645}
   clockHandPickup: {fileID: 619890046}
@@ -1190,7 +1190,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 393, y: -371}
+  m_AnchoredPosition: {x: 148, y: 41}
   m_SizeDelta: {x: 218.146, y: 212.651}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!111 &247148105
@@ -1801,7 +1801,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &370198355
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1811,14 +1811,14 @@ RectTransform:
   m_GameObject: {fileID: 370198354}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.3848, y: 2.3848, z: 2.3848}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 905843831}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 296.9, y: 149.05049}
+  m_AnchoredPosition: {x: 801, y: 408}
   m_SizeDelta: {x: 187.3184, y: 116.0489}
   m_Pivot: {x: 0.6114662, y: 0.49999997}
 --- !u!114 &370198358
@@ -3924,7 +3924,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 150, y: -20}
+  m_AnchoredPosition: {x: 108, y: -20}
   m_SizeDelta: {x: 100, y: 130}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &748662242
@@ -4600,8 +4600,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -333, y: 353}
-  m_SizeDelta: {x: 88.611, y: 125.751}
+  m_AnchoredPosition: {x: -329, y: 340}
+  m_SizeDelta: {x: 88.611, y: 107.498}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &915370120
 MonoBehaviour:
@@ -8857,7 +8857,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1602133619
 MonoBehaviour:
   m_ObjectHideFlags: 0
