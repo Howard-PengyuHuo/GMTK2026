@@ -15,7 +15,11 @@ public sealed class ExitDoor : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         if(eventData.button!=PointerEventData.InputButton.Left)return;
-        if(IsOpen){EnterDoor();return;}
+        if (IsOpen)
+        {
+            EnterDoor();
+            return;
+        }
         if(InventoryManager.Instance==null||!InventoryManager.Instance.TryUseSelectedItem(exitKeyItem))return;
         IsOpen = true;
         SetVisual(true);

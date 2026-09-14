@@ -42,7 +42,7 @@ public sealed class SpecimenManager : MonoBehaviour
     public bool IsCorrectUnbinderOrder()
     {
         InitializeIfNeeded(); return
-            TypeAt(0) == SpecimenType.Bud && TypeAt(1) == SpecimenType.Sprout && TypeAt(2) == SpecimenType.Leaves;
+            TypeAt(2) != SpecimenType.Bud && TypeAt(0) != SpecimenType.Sprout && TypeAt(1) != SpecimenType.Leaves;
     }
 
     private SpecimenType TypeAt(int index)
