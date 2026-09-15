@@ -8,6 +8,10 @@ public sealed class ExitDoor : MonoBehaviour, IPointerClickHandler
     [SerializeField] private GameObject closedDoorObject;
     [SerializeField] private GameObject openedDoorObject;
     [SerializeField] private string nextSceneName;
+    [SerializeField] private GameObject startObject;
+    [SerializeField] private GameObject startScreen;
+    [SerializeField] private GameObject introPanel;
+    
     public bool IsOpen { get; private set; }
     public bool PuzzleCompleted { get; private set; }
     private void Start()=>SetVisual(false);
@@ -31,6 +35,15 @@ public sealed class ExitDoor : MonoBehaviour, IPointerClickHandler
         if(!string.IsNullOrWhiteSpace(nextSceneName))
             SceneManager.LoadScene(nextSceneName);
         else Debug.Log("[FlowerPuzzle] Puzzle completed.");
+        
+        if (startObject != null)
+            startObject.SetActive(true);
+        if (introPanel != null)
+        {
+            introPanel.SetActive(false);
+        }
+        if (startScreen != null) 
+            startScreen.SetActive(true);
     }
 
     private void SetVisual(bool opened)
